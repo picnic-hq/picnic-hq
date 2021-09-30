@@ -62,4 +62,44 @@ fetch('https://us-central1-amber-app-supercool.cloudfunctions.net/exportStats')
         })
 
     })
+fetch('https://us-central1-amber-app-supercool.cloudfunctions.net/exportStatsSignin')
+    .then(response => {
+        return response.json();
+    }).then(data => {
+        console.log(data);
+        var k = Object.keys(data).map(function (k) { return k });
+        var v = Object.keys(data).map(function (k) { return data[k] });
+        const keys = k.reverse();
+        const values = v.reverse();
+        console.log('keys', keys);
+        console.log('values', values);
+
+        var ctx = document.getElementById('myChart2');
+        var stars = values;//[135850, 52122, 148825, 16939, 9763];
+        var frameworks = keys;//['React', 'Angular', 'Vue', 'Hyperapp', 'Omi'];
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: frameworks,
+                datasets: [{
+                    label: 'DAILY SIGNIN',
+                    data: stars
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        })
+
+    })
+
+
+
 
